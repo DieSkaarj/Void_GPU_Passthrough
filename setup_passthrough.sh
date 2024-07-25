@@ -36,7 +36,7 @@ check_ids(){
 	while [ $COUNT -le $LENGTH ]
 	do
 		if test "$2" = "${IDS[$COUNT]}" ; then
-			echo -n " ...OK!" ;
+			echo -n "...OK!" ;
 			echo ""
 			break
 		fi
@@ -44,7 +44,7 @@ check_ids(){
 		COUNT=$(( $COUNT+1 ))
 
 		if [ "$LENGTH" = $COUNT ] ; then
-			echo -n " ...id unavailable. Quiting."
+			echo -n "Id not found, exiting..."
 			echo ""
 			exit 1
 		fi
@@ -57,20 +57,20 @@ echo ""
 
 VENDOR=${VENDOR,,}	# Reset variable to be lowercase
 if test "$VENDOR" != "amd" && test "$VENDOR" != "intel"; then
-	echo "Unknown vendor. Quiting..."
+	echo "Incompatible vendor or bad vendor name, exiting..."
 	echo ""
 	exit 1
 fi
 
 echo "`lspci -nn | grep VGA`"
 echo ""
-read -p "Device id: " GFX_ID
+read -p "Device: " GFX_ID
 check_ids VGA $GFX_ID
 
 echo ""
 echo "`lspci -nn | grep Audio`"
 echo ""
-read -p "Device id: " HDA_ID
+read -p "Device: " HDA_ID
 check_ids Audio $HDA_ID
 
 echo ""
